@@ -35,7 +35,7 @@ public class informationController extends AppCompatActivity {
         TextView location = (TextView) findViewById(R.id.nameText);
         ImageView imageView = (ImageView) findViewById(R.id.imageView4);
 
-        car = cars.setReference(car);
+//        car = cars.setReference(car);
         name.setText(car.getName());
         brand.setText(car.getBrand());
         type.setText(car.getType());

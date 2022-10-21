@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">project_rentCar</string>
+    <string name="invalid_name">Please enter username</string>
+    <string name="invalid_phone">please enter valid phone number</string>
+    <string name="invalid_password">please enter password more than 6 letter</string>
+    <string name="invalid_confirm_password">Please enter same password</string>
 </resources>

@@ -1,35 +1,41 @@
 package com.example.project_rentcar.controller;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.example.project_rentcar.R;
 import com.example.project_rentcar.model.account.User;
+import com.example.project_rentcar.model.db.UserDAO;
+import com.example.project_rentcar.model.db.UserDB;
 
 public class registerController extends AppCompatActivity {
+
+    AwesomeValidation awesomeValidation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
 
-//        users = (UserList) FXRouter.getData();
-
-        ImageView imageView = (ImageView) findViewById(R.id.imageView);
         Button button = (Button) findViewById(R.id.confirmBTN);
         EditText usernameText = (EditText) findViewById(R.id.username);
         EditText phoneText = (EditText) findViewById(R.id.phone);
         EditText passwordText = (EditText) findViewById(R.id.password);
         EditText confirmPasswordText = (EditText) findViewById(R.id.confirmPassword);
 
-        imageView.setBackgroundResource(R.drawable.logo);
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+        awesomeValidation.addValidation(this,R.id.username, RegexTemplate.NOT_EMPTY,R.string.invalid_name);
+        awesomeValidation.addValidation(this,R.id.phone,"[0][8-9][0-9]{8}$",R.string.invalid_phone);
+        awesomeValidation.addValidation(this,R.id.password,".{6,}",R.string.invalid_password);
+        awesomeValidation.addValidation(this,R.id.confirmPassword,R.id.password,R.string.invalid_confirm_password);
         button.setOnClickListener(new View.OnClickListener() {
             String username = usernameText.toString();
             String phone = phoneText.toString();
@@ -37,41 +43,25 @@ public class registerController extends AppCompatActivity {
             String confirmPassword = confirmPasswordText.toString();
             @Override
             public void onClick(View view)  {
-                if (isDataEmpty(username, phone, password, confirmPassword)) {
-//                    if(!users.isContainByUsername(usernameText)) {
-                        if (passwordText.equals(confirmPasswordText)) {
-                            register(username, password, phone);
-                        }else
-                            alert("กรุณาใส่รหัสผ่านให้ตรงกัน");
-//                    }else
-//                        alert("ชื่อผู้ใช้นี้ถูกใช้งานแล้ว");
+                User user = new User();
+                if (awesomeValidation.validate()) {
+                    UserDB appDB = UserDB.getInstance(getApplicationContext());
+                    final UserDAO userDAO = UserDB.userDAO();
+                    new Thread((new Runnable() {
+                        @Override
+                        public void run() {
+                            userDAO.insertUser(user);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(),"User Register!",Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    })).start();
                 }else
-                    alert("กรุณาใส่ข้อมูลให้ครบถ้วน");
+                    Toast.makeText(getApplicationContext(),"Fill all fields!", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    public void register(String username, String password, String phone) {
-        User user = new User(username, password, phone);
-//        users.addUser(user);
-//
-//        try {
-//            userListDataSource.writeData(users);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-    }
-
-    private void alert(String massage) {
-        AlertDialog dlg = new AlertDialog.Builder(registerController.this).setTitle("Message").setMessage(massage).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        }).create();dlg.show();
-    }
-
-    public Boolean isDataEmpty(String username, String phone, String password, String confirmPassword){
-        return !username.isEmpty() && !phone.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty();
     }
 }

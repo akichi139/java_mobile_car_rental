@@ -1,37 +1,53 @@
 package com.example.project_rentcar.model.car;
 
-import java.io.File;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+@Entity
 public class Car {
 
-    private int ID;
-    private String name;
-    private String brand;
-    private String type;
-    private String status;
-    private String seat;
-    private String gear;
-    private String baggage;
-    private String engine;
-    private String owner;
-    private String rate;
-    private String prLocation;
-    private String image;
+    @PrimaryKey(autoGenerate = true)
+    public int id;
 
-    public Car(int ID, String name, String brand, String type, String status, String seat, String gear, String baggage, String engine, String owner, String rate, String prLocation, String image) {
-        this.ID = ID;
-        this.name = name;
-        this.brand = brand;
-        this.type = type;
-        this.status = status;
-        this.seat = seat;
-        this.gear = gear;
-        this.baggage = baggage;
-        this.engine = engine;
-        this.owner = owner;
-        this.rate = rate;
-        this.prLocation = prLocation;
-        this.image = image;
+    @ColumnInfo(name = "product_name")
+    public String name;
+
+    @ColumnInfo(name = "brand_name")
+    public String brand;
+
+    @ColumnInfo(name = "type")
+    public String type;
+
+    @ColumnInfo(name = "status")
+    public String status;
+
+    @ColumnInfo(name = "seat")
+    public String seat;
+
+    @ColumnInfo(name = "gear")
+    public String gear;
+
+    @ColumnInfo(name = "baggage")
+    public String baggage;
+
+    @ColumnInfo(name = "engine")
+    public String engine;
+
+    @ColumnInfo(name = "owner")
+    public String owner;
+
+    @ColumnInfo(name = "rate")
+    public String rate;
+
+    @ColumnInfo(name = "pickLocation")
+    public String prLocation;
+
+    @ColumnInfo(name = "image_path")
+    public String image;
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -78,16 +94,7 @@ public class Car {
         return prLocation;
     }
 
-    public int getID() {
-        return ID;
-    }
-
     public String getImage() {
         return image;
-    }
-
-    public String getPicturePath() {
-        File file = new File(System.getProperty("user.dir") + File.separator + "productimages" + File.separator + image);
-        return file.toURI().toString();
     }
 }
