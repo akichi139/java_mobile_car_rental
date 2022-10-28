@@ -1,5 +1,6 @@
 package com.example.project_rentcar.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
+import com.example.project_rentcar.DBHelper;
+import com.example.project_rentcar.MainActivity;
 import com.example.project_rentcar.R;
 import com.example.project_rentcar.model.account.User;
 import com.example.project_rentcar.model.db.UserDAO;
@@ -19,6 +22,7 @@ import com.example.project_rentcar.model.db.UserDB;
 public class registerController extends AppCompatActivity {
 
     AwesomeValidation awesomeValidation;
+    DBHelper DB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,7 @@ public class registerController extends AppCompatActivity {
         awesomeValidation.addValidation(this,R.id.phone,"[0][8-9][0-9]{8}$",R.string.invalid_phone);
         awesomeValidation.addValidation(this,R.id.password,".{6,}",R.string.invalid_password);
         awesomeValidation.addValidation(this,R.id.confirmPassword,R.id.password,R.string.invalid_confirm_password);
+        DB = new DBHelper(this);
         button.setOnClickListener(new View.OnClickListener() {
             String username = usernameText.toString();
             String phone = phoneText.toString();
@@ -45,20 +50,23 @@ public class registerController extends AppCompatActivity {
             public void onClick(View view)  {
                 User user = new User();
                 if (awesomeValidation.validate()) {
-                    UserDB appDB = UserDB.getInstance(getApplicationContext());
-                    final UserDAO userDAO = UserDB.userDAO();
-                    new Thread((new Runnable() {
-                        @Override
-                        public void run() {
-                            userDAO.insertUser(user);
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(getApplicationContext(),"User Register!",Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                    Boolean checkUser = DB.checkUsername(username);
+                    if (checkUser==false){
+                        Boolean insert = DB.insertData(username,password,phone);
+                        if (insert==true){
+                            Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), loginController.class);
+                            startActivity(intent);
                         }
-                    })).start();
+                        else {
+                            Toast.makeText(getApplicationContext(), "Registration Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "User Already exists please sign in", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), loginController.class);
+                        startActivity(intent);
+                    }
                 }else
                     Toast.makeText(getApplicationContext(),"Fill all fields!", Toast.LENGTH_SHORT).show();
             }
