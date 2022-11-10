@@ -88,62 +88,82 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
                         if (position == 2) {
+                            String str = (String) theList.get(position);
+                            Log.d("test", str);
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            intent.putExtra("position", position);
+                            intent.putExtra("position", str);
                             intent.putExtra("user", user);
                             startActivity(intent);
                         }
                         if (position == 4) {
+                            String str = (String) theList.get(position);
+                            Log.d("test", str);
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            intent.putExtra("position", position);
+                            intent.putExtra("position", str);
                             intent.putExtra("user", user);
                             startActivity(intent);
                         }
                         if (position == 6) {
+                            String str = (String) theList.get(position);
+                            Log.d("test", str);
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            intent.putExtra("position", position);
+                            intent.putExtra("position", str);
                             intent.putExtra("user", user);
                             startActivity(intent);
                         }
                         if (position == 8) {
+                            String str = (String) theList.get(position);
+                            Log.d("test", str);
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            intent.putExtra("position", position);
+                            intent.putExtra("position", str);
                             intent.putExtra("user", user);
                             startActivity(intent);
                         }
                         if (position == 10) {
+                            String str = (String) theList.get(position);
+                            Log.d("test", str);
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            intent.putExtra("position", position);
+                            intent.putExtra("position", str);
                             intent.putExtra("user", user);
                             startActivity(intent);
                         }
                         if (position == 12) {
+                            String str = (String) theList.get(position);
+                            Log.d("test", str);
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            intent.putExtra("position", position);
+                            intent.putExtra("position", str);
                             intent.putExtra("user", user);
                             startActivity(intent);
                         }
                         if (position == 14) {
+                            String str = (String) theList.get(position);
+                            Log.d("test", str);
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            intent.putExtra("position", position);
+                            intent.putExtra("position", str);
                             intent.putExtra("user", user);
                             startActivity(intent);
                         }
                         if (position == 16) {
+                            String str = (String) theList.get(position);
+                            Log.d("test", str);
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            intent.putExtra("position", position);
+                            intent.putExtra("position", str);
                             intent.putExtra("user", user);
                             startActivity(intent);
                         }
                         if (position == 18) {
+                            String str = (String) theList.get(position);
+                            Log.d("test", str);
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            intent.putExtra("position", position);
+                            intent.putExtra("position", str);
                             intent.putExtra("user", user);
                             startActivity(intent);
                         }
                         if (position == 20) {
+                            String str = (String) theList.get(position);
+                            Log.d("test", str);
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            intent.putExtra("position", position);
+                            intent.putExtra("position", str);
                             intent.putExtra("user", user);
                             startActivity(intent);
                         }

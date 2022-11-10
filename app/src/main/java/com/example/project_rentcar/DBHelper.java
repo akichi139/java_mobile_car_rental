@@ -85,20 +85,32 @@ public class DBHelper extends SQLiteOpenHelper {
             return true;
     }
 
-//    public Boolean updateCar(String id) {
-//        SQLiteDatabase MyDB = this.getWritableDatabase();
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put("Status", "renting");
-//        Cursor cursor = MyDB.rawQuery("Select * from cars where id = ?", new String[]{id});
-//        if (cursor.getCount() > 0) {
-//            long result = MyDB.update("cars", contentValues, "id=?", new String[]{id});
-//            if (result == -1) return false;
-//            else
-//                return true;
-//        } else {
-//            return false;
-//        }
-//    }
+    public Boolean updateCars(String id, String cBrand, String cType, String cSeat, String cGear, String cEngine, String cOwner, String cStatus, String cRate, String cLocation){
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("cid", id);
+        contentValues.put("cBrand", cBrand);
+        contentValues.put("cType", cType);
+        contentValues.put("cSeat", cSeat);
+        contentValues.put("cGear", cGear);
+        contentValues.put("cEngine", cEngine);
+        contentValues.put("cOwner", cOwner);
+        contentValues.put("cStatus", cStatus);
+        contentValues.put("cRate", cRate);
+        contentValues.put("cLocation", cLocation);
+        Cursor cursor = MyDB.rawQuery("Select * from cars where cid = ?", new String[] {id});
+        if (cursor.getCount()>0){
+            long result = MyDB.update("cars", contentValues,"cid=?", new String[] {id});
+            if(result==-1) return false;
+            else
+                return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 
 //    public Boolean deleteCar(String id) {
 //        SQLiteDatabase MyDB = this.getWritableDatabase();

@@ -75,10 +75,11 @@ public class informationController extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), Payment.class);
                 intent.putExtra("user", user);
                 intent.putExtra("day", String.valueOf(rentDay.getText()));
-                Log.d("test", String.valueOf(rentDay.getText()));
-                intent.putExtra("rate", split[22]);
-                Log.d("test", String.valueOf(rate.getText()));
-                intent.putExtra("idCar", split[1]);
+                intent.putExtra("position",str);
+//                Log.d("test", String.valueOf(rentDay.getText()));
+//                intent.putExtra("rate", split[22]);
+//                Log.d("test", String.valueOf(rate.getText()));
+//                intent.putExtra("idCar", split[1]);
                 startActivity(intent);
             }
         });

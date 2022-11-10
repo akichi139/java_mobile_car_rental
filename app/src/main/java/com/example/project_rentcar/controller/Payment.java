@@ -31,19 +31,33 @@ public class Payment extends AppCompatActivity {
         TextView account = (TextView)findViewById(R.id.userView);
         account.setText(user);
 
-        String rate = getIntent().getStringExtra("rate");
+        String str = getIntent().getStringExtra("position");
         String day = getIntent().getStringExtra("day");
-        String id = getIntent().getStringExtra("idCar");
+        String[] split = str.split("\\s+");
+//        String id = getIntent().getStringExtra("idCar");
+//        String rate = getIntent().getStringExtra("rate");
         TextView textRate = (TextView) findViewById(R.id.ratePrice);
         TextView textDay = (TextView) findViewById(R.id.dayOfRent);
         TextView cid = (TextView) findViewById(R.id.carID);
-        cid.setText(id);
-        textRate.setText(rate);
+
+        String id = split[1];
+        String cBrand = split[4];
+        String cType = split[7];
+        String cSeat = split[10];
+        String cGear = split[13];
+        String cEngine = split[16];
+        String cOwner = split[18];
+        String cStatus = "Renting";
+        String cRate = split[22];
+        String cLocation = split[25];
+
+        cid.setText(split[1]);
+        textRate.setText(split[22]);
         Log.d("test","test day" + day);
-        Log.d("test","test rate" + rate);
+        Log.d("test","test rate" + split[22]);
         textDay.setText(day);
 
-        Integer total = Integer.valueOf(rate) * Integer.valueOf(day);
+        Integer total = Integer.valueOf(split[22]) * Integer.valueOf(day);
 
         TextView textTotal = (TextView) findViewById(R.id.totalText);
         String totalPay = total.toString();
@@ -52,15 +66,15 @@ public class Payment extends AppCompatActivity {
         purchase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Boolean update = DB.updateCar(id) ;
-//                if (update==true){
-//                    Toast.makeText(getApplicationContext(), "Payment successful", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("user", user);
-                startActivity(intent);
-//                }else{
-//                    Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT).show();
-//                }
+                Boolean update = DB.updateCars(id,cBrand,cType,cSeat,cGear,cEngine,cOwner,cStatus,cRate,cLocation) ;
+                if (update==true){
+                    Toast.makeText(getApplicationContext(), "Payment successful", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.putExtra("user", user);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
