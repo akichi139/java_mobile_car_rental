@@ -47,13 +47,13 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="363dp"
-        android:layout_height="390dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="381dp"
+        android:layout_height="358dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/picview">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <EditText
             android:id="@+id/id"
@@ -101,15 +101,6 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/baggage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter Baggage"
-            android:inputType="textPersonName"
-            android:textSize="16sp" />
-
-        <EditText
             android:id="@+id/engine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -123,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter rate"
+            android:hint="Enter rate per hour"
             android:inputType="textPersonName"
             android:textSize="16sp" />
 
@@ -148,22 +139,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
-    <Button
-        android:id="@+id/browseBTN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="88dp"
-        android:text="browse"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="164dp" />
-<!--        android:onClick="handleBrowseButton" />-->
+    <!--        android:onClick="handleBrowseButton" />-->
 
-    <ImageView
-        android:id="@+id/picview"
-        android:layout_width="147dp"
-        android:layout_height="122dp"
-        android:layout_marginStart="72dp"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="128dp"
-        tools:srcCompat="@tools:sample/avatars" />
 </androidx.constraintlayout.widget.ConstraintLayout>

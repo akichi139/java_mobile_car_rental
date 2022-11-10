@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "113794097559",
+    "project_id": "mobile-b724e",
+    "storage_bucket": "mobile-b724e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:113794097559:android:7e6ec85c19d6bb3b0c64d2",
+        "android_client_info": {
+          "package_name": "com.example.project_rentcar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "113794097559-036n4p9gqm8v4c209vj926rtma96fbmf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbSpF3rX6RrjDdcRcYVvSB3Q57_dUBCwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "113794097559-036n4p9gqm8v4c209vj926rtma96fbmf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

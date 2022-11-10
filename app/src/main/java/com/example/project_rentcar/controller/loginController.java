@@ -12,8 +12,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.project_rentcar.DBHelper;
 import com.example.project_rentcar.MainActivity;
 import com.example.project_rentcar.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class loginController extends AppCompatActivity {
+
+    FirebaseDatabase rootNode;
+    DatabaseReference reference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +34,7 @@ public class loginController extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String user = username.getText().toString();
                 String pass = password.getText().toString();
 
@@ -38,9 +45,7 @@ public class loginController extends AppCompatActivity {
                     if (checkUserPwd==true){
                         Toast.makeText(loginController.this, "LogIn Successful", Toast.LENGTH_SHORT).show();
                         Intent intent= new Intent(getApplicationContext(), MainActivity.class);
-                        Bundle b = new Bundle();
-                        b.putString("key", String.valueOf(username));
-                        intent.putExtras(b);
+                        intent.putExtra("user",user);
                         startActivity(intent);
                     }
                     else{

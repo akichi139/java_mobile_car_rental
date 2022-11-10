@@ -5,15 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="139dp"
-        android:layout_height="104dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:layout_editor_absoluteX="136dp"
-        tools:srcCompat="@tools:sample/avatars" />
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="363dp"
@@ -56,15 +47,15 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="371dp"
-        android:layout_height="305dp"
+        android:layout_width="364dp"
+        android:layout_height="317dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -111,13 +102,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Gear:"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Baggage:"
                 android:textSize="20sp" />
 
             <TextView
@@ -186,12 +170,6 @@
 
             <TextView
                 android:id="@+id/gearText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/bagText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp" />

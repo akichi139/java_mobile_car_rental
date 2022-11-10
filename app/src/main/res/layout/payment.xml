@@ -19,11 +19,43 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="match_parent"
+            android:layout_width="248dp"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/logo" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/userView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/logoutBTN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="logout" />
+        </LinearLayout>
+
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="363dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
         android:id="@+id/imageView5"
@@ -36,8 +68,9 @@
         app:srcCompat="@drawable/logo" />
 
     <LinearLayout
-        android:layout_width="363dp"
-        android:layout_height="115dp"
+        android:id="@+id/linearLayout4"
+        android:layout_width="383dp"
+        android:layout_height="214dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="10dp"
@@ -47,9 +80,17 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView5">
 
         <LinearLayout
-            android:layout_width="79dp"
+            android:layout_width="101dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="carID:"
+                android:textSize="34sp" />
 
             <TextView
                 android:id="@+id/textView18"
@@ -66,12 +107,27 @@
                 android:layout_weight="1"
                 android:text="day:"
                 android:textSize="34sp" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="total:"
+                android:textSize="34sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/carID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="34sp" />
 
             <TextView
                 android:id="@+id/ratePrice"
@@ -87,7 +143,26 @@
                 android:layout_weight="1"
                 android:textSize="34sp" />
 
+            <TextView
+                android:id="@+id/totalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="34sp" />
+
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/purchaseBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginLeft="148dp"
+        android:layout_marginTop="48dp"
+        android:text="Purchase"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

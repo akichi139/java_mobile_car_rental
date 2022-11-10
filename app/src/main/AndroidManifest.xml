@@ -17,6 +17,7 @@
         <activity android:name=".controller.AddRentCar"/>
         <activity android:name=".controller.registerController"/>
         <activity android:name=".controller.informationController"/>
+        <activity android:name=".controller.Payment"/>
         <activity android:name=".controller.loginController"
             android:exported="true">
 

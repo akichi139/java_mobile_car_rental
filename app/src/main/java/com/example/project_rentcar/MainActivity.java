@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,11 +21,13 @@ import android.widget.Toast;
 
 import com.example.project_rentcar.controller.AddRentCar;
 import com.example.project_rentcar.controller.informationController;
+import com.example.project_rentcar.controller.loginController;
 import com.example.project_rentcar.model.car.Car;
 import com.example.project_rentcar.model.car.CarList;
-import com.example.project_rentcar.model.db.AppDB;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,18 +41,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Bundle b = getIntent().getExtras();
-        String username = ""; // or other values
-        if(b != null)
-            username = b.getString("key");
+        String username = getIntent().getStringExtra("user");
 
         user = username;
 
         TextView account = (TextView)findViewById(R.id.userView);
         account.setText(user);
 
-        ListView listView = (ListView) findViewById(R.id.recycleView);
+        ListView listView = (ListView) findViewById(R.id.listView);
         Button addCar = (Button)findViewById(R.id.addNewCar);
+        Button logout = (Button)findViewById(R.id.logoutBTN);
         myDB = new DBHelper(this);
 
         ArrayList<String> theList = new ArrayList<>();
@@ -64,128 +65,87 @@ public class MainActivity extends AppCompatActivity {
                         + "Car Type:" + "  " + data.getString(2) + "                              "
                         + "Total Seats:" + "  " + data.getString(3) + "                              "
                         + "Car Gear:" + "  " + data.getString(4) + "                              "
-                        + "Total Baggage:" + "  " + data.getString(5) + "                              "
-                        + "Car Engine:" + "  " + data.getString(6) + "                              "
-                        + "Owner:" + "  " + data.getString(7) + "                              "
-                        + "Status:" + "  " + data.getString(8) + "                              "
-                        + "Rate:" + "  " + data.getString(9) + "                              "
-                        + "Pickup Location:" + "  " + data.getString(10));
+                        + "Car Engine:" + "  " + data.getString(5) + "                              "
+                        + "Owner:" + "  " + data.getString(6) + "                              "
+                        + "Status:" + "  " + data.getString(7) + "                              "
+                        + "Rate:" + "  " + data.getString(8) + "                              "
+                        + "Pickup Location:" + "  " + data.getString(9));
                 theList.add("");
                 ListAdapter listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, theList);
                 listView.setAdapter(listAdapter);
+//
+//                Log.d("test", String.valueOf(listAdapter));
 
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         if (position == 0) {
+                            String str = (String) theList.get(position);
+                            Log.d("test", str);
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            Bundle a = new Bundle();
-                            a.putInt("key", position); //Your id
-                            b.putString("key2",user);
-                            intent.putExtras(a); //Put your id to your next Intent
-                            intent.putExtras(b);
+                            intent.putExtra("position", str);
+                            intent.putExtra("user", user);
                             startActivity(intent);
-                            finish();
                         }
                         if (position == 2) {
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            Bundle a = new Bundle();
-                            a.putInt("key", position); //Your id
-                            b.putString("key2",user);
-                            intent.putExtras(a); //Put your id to your next Intent
-                            intent.putExtras(b);
+                            intent.putExtra("position", position);
+                            intent.putExtra("user", user);
                             startActivity(intent);
-                            finish();
                         }
                         if (position == 4) {
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            Bundle a = new Bundle();
-                            a.putInt("key", position); //Your id
-                            b.putString("key2",user);
-                            intent.putExtras(a); //Put your id to your next Intent
-                            intent.putExtras(b);
+                            intent.putExtra("position", position);
+                            intent.putExtra("user", user);
                             startActivity(intent);
-                            finish();
                         }
                         if (position == 6) {
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            Bundle a = new Bundle();
-                            a.putInt("key", position); //Your id
-                            b.putString("key2",user);
-                            intent.putExtras(a); //Put your id to your next Intent
-                            intent.putExtras(b);
+                            intent.putExtra("position", position);
+                            intent.putExtra("user", user);
                             startActivity(intent);
-                            finish();
                         }
                         if (position == 8) {
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            Bundle a = new Bundle();
-                            a.putInt("key", position); //Your id
-                            b.putString("key2",user);
-                            intent.putExtras(a); //Put your id to your next Intent
-                            intent.putExtras(b);
+                            intent.putExtra("position", position);
+                            intent.putExtra("user", user);
                             startActivity(intent);
-                            finish();
                         }
                         if (position == 10) {
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            Bundle a = new Bundle();
-                            a.putInt("key", position); //Your id
-                            b.putString("key2",user);
-                            intent.putExtras(a); //Put your id to your next Intent
-                            intent.putExtras(b);
+                            intent.putExtra("position", position);
+                            intent.putExtra("user", user);
                             startActivity(intent);
-                            finish();
                         }
                         if (position == 12) {
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            Bundle a = new Bundle();
-                            a.putInt("key", position); //Your id
-                            b.putString("key2",user);
-                            intent.putExtras(a); //Put your id to your next Intent
-                            intent.putExtras(b);
+                            intent.putExtra("position", position);
+                            intent.putExtra("user", user);
                             startActivity(intent);
-                            finish();
                         }
                         if (position == 14) {
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            Bundle a = new Bundle();
-                            a.putInt("key", position); //Your id
-                            b.putString("key2",user);
-                            intent.putExtras(a); //Put your id to your next Intent
-                            intent.putExtras(b);
+                            intent.putExtra("position", position);
+                            intent.putExtra("user", user);
                             startActivity(intent);
-                            finish();
                         }
                         if (position == 16) {
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            Bundle a = new Bundle();
-                            a.putInt("key", position); //Your id
-                            b.putString("key2",user);
-                            intent.putExtras(a); //Put your id to your next Intent
-                            intent.putExtras(b);
+                            intent.putExtra("position", position);
+                            intent.putExtra("user", user);
                             startActivity(intent);
-                            finish();
                         }
                         if (position == 18) {
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            Bundle a = new Bundle();
-                            a.putInt("key", position); //Your id
-                            b.putString("key2",user);
-                            intent.putExtras(a); //Put your id to your next Intent
-                            intent.putExtras(b);
+                            intent.putExtra("position", position);
+                            intent.putExtra("user", user);
                             startActivity(intent);
-                            finish();
                         }
                         if (position == 20) {
                             Intent intent = new Intent(view.getContext(), informationController.class);
-                            Bundle a = new Bundle();
-                            a.putInt("key", position); //Your id
-                            b.putString("key2",user);
-                            intent.putExtras(a); //Put your id to your next Intent
-                            intent.putExtras(b);
+                            intent.putExtra("position", position);
+                            intent.putExtra("user", user);
                             startActivity(intent);
-                            finish();
                         }
                     }
                 });
@@ -195,11 +155,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AddRentCar.class);
-                Bundle b = new Bundle();
-                b.putString("key", String.valueOf(user));
-                intent.putExtras(b);
+                intent.putExtra("user", user);
                 startActivity(intent);
-                finish();
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "logout successful", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), loginController.class);
+                startActivity(intent);
             }
         });
     }

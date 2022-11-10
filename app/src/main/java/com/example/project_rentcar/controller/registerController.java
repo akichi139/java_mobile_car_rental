@@ -16,13 +16,15 @@ import com.example.project_rentcar.DBHelper;
 import com.example.project_rentcar.MainActivity;
 import com.example.project_rentcar.R;
 import com.example.project_rentcar.model.account.User;
-import com.example.project_rentcar.model.db.UserDAO;
-import com.example.project_rentcar.model.db.UserDB;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class registerController extends AppCompatActivity {
 
     AwesomeValidation awesomeValidation;
     DBHelper DB;
+    FirebaseDatabase rootNode;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +42,15 @@ public class registerController extends AppCompatActivity {
         awesomeValidation.addValidation(this,R.id.phone,"[0][8-9][0-9]{8}$",R.string.invalid_phone);
         awesomeValidation.addValidation(this,R.id.password,".{6,}",R.string.invalid_password);
         awesomeValidation.addValidation(this,R.id.confirmPassword,R.id.password,R.string.invalid_confirm_password);
+
         DB = new DBHelper(this);
+
         button.setOnClickListener(new View.OnClickListener() {
-            String username = usernameText.toString();
-            String phone = phoneText.toString();
-            String password = passwordText.toString();
-            String confirmPassword = confirmPasswordText.toString();
             @Override
             public void onClick(View view)  {
-                User user = new User();
+                String username = usernameText.getText().toString();
+                String phone = phoneText.getText().toString();
+                String password = passwordText.getText().toString();
                 if (awesomeValidation.validate()) {
                     Boolean checkUser = DB.checkUsername(username);
                     if (checkUser==false){
