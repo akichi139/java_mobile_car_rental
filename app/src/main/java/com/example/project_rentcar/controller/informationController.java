@@ -22,6 +22,7 @@ public class informationController extends AppCompatActivity {
 
     DBHelper myDB;
     private String user;
+    DBHelper DB = new DBHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class informationController extends AppCompatActivity {
         EditText rentDay = (EditText) findViewById(R.id.dayForRent);
         Button rent = (Button)findViewById(R.id.rentBtn);
         Button logout = findViewById(R.id.logoutBTN);
+        Button rented = (Button)findViewById(R.id.rentedBTN);
         ImageView logo = findViewById(R.id.imageView3);
 
         TextView id = (TextView) findViewById(R.id.idText);
@@ -76,10 +78,6 @@ public class informationController extends AppCompatActivity {
                 intent.putExtra("user", user);
                 intent.putExtra("day", String.valueOf(rentDay.getText()));
                 intent.putExtra("position",str);
-//                Log.d("test", String.valueOf(rentDay.getText()));
-//                intent.putExtra("rate", split[22]);
-//                Log.d("test", String.valueOf(rate.getText()));
-//                intent.putExtra("idCar", split[1]);
                 startActivity(intent);
             }
         });
@@ -102,5 +100,30 @@ public class informationController extends AppCompatActivity {
             }
         });
 
+        String cid = split[1];
+        String cBrand = split[4];
+        String cType = split[7];
+        String cSeat = split[10];
+        String cGear = split[13];
+        String cEngine = split[16];
+        String cOwner = split[18];
+        String cStatus = "empty";
+        String cRate = split[22];
+        String cLocation = split[25];
+
+        rented.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Boolean update = DB.updateCars(cid,cBrand,cType,cSeat,cGear,cEngine,cOwner,cStatus,cRate,cLocation) ;
+                if (update==true){
+                    Toast.makeText(getApplicationContext(), "Status change to empty", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.putExtra("user", user);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

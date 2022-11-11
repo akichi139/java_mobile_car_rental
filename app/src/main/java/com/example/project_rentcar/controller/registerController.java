@@ -23,8 +23,6 @@ public class registerController extends AppCompatActivity {
 
     AwesomeValidation awesomeValidation;
     DBHelper DB;
-    FirebaseDatabase rootNode;
-    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
