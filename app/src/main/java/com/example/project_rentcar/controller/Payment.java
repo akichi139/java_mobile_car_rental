@@ -1,5 +1,7 @@
 package com.example.project_rentcar.controller;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,15 +13,52 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.project_rentcar.A;
 import com.example.project_rentcar.DBHelper;
 import com.example.project_rentcar.MainActivity;
 import com.example.project_rentcar.R;
 
+import org.web3j.crypto.Credentials;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.gas.ContractGasProvider;
+import org.web3j.tx.gas.DefaultGasProvider;
+
+import java.math.BigInteger;
+
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
 public class Payment extends AppCompatActivity {
+
+    A a;
+    Context context = this;
+
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.payment);
+
+        TextView rentAmount = findViewById(R.id.rentAmount);
+
+        Web3j web3 = Web3j.build(new HttpService("https://goerli.infura.io/v3/27bfa977ee9340ed80f98f444b417880"));
+        Credentials credentials = Credentials.create("e5929058a97b2b050b864c62c1b000d5793a90f90ba6a392ea49b5cd4a99e91a");
+        ContractGasProvider contractGasProvider = new DefaultGasProvider();
+        a = A.load("0x420ed9D856Aa3860F87A9bec4d1BE5d7bEBEa458", web3, credentials, contractGasProvider);
+
+        a.getData().flowable().subscribeOn(Schedulers.io()).subscribe(new Consumer<BigInteger>() {
+            @Override
+            public void accept(BigInteger bigInteger) throws Exception {
+                Log.i("vac", "accept: " + bigInteger);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        rentAmount.setText(String.valueOf(bigInteger));
+                    }
+                });
+            }
+        });
 
         DBHelper DB = new DBHelper(this);
 
@@ -66,6 +105,32 @@ public class Payment extends AppCompatActivity {
         purchase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ProgressDialog progressDialog = new ProgressDialog(context);
+
+                progressDialog.setTitle("Connect to blockchain");
+                progressDialog.setMessage("Please wait...");
+                progressDialog.show();
+
+                a.store(new BigInteger(day)).flowable().subscribeOn(Schedulers.io()).subscribe(new Consumer<TransactionReceipt>() {
+                    @Override
+                    public void accept(TransactionReceipt transactionReceipt) throws Exception {
+                        Log.i("vac", "accept: ");
+                        a.getData().flowable().subscribeOn(Schedulers.io()).subscribe(new Consumer<BigInteger>() {
+                            @Override
+                            public void accept(BigInteger bigInteger) throws Exception {
+                                Log.i("vac", "accept: " + bigInteger);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        rentAmount.setText(String.valueOf(bigInteger));
+                                    }
+                                });
+                            }
+                        });
+                        progressDialog.dismiss();
+                    }
+                });
+
                 Boolean update = DB.updateCars(id,cBrand,cType,cSeat,cGear,cEngine,cOwner,cStatus,cRate,cLocation) ;
                 if (update==true){
                     Toast.makeText(getApplicationContext(), "Payment successful", Toast.LENGTH_SHORT).show();
